@@ -1,4 +1,9 @@
-﻿# Fill in parameters
+﻿# References
+# https://learn.microsoft.com/en-us/rest/api/power-bi/datasets/get-refresh-history-in-group
+# https://learn.microsoft.com/en-us/rest/api/power-bi/datasets/get-refresh-execution-details-in-group
+# https://learn.microsoft.com/en-us/power-bi/connect-data/asynchronous-refresh
+
+# Fill in parameters
 $groupID = "Group ID" 
 $datasetID = "Dataset ID" 
 $RequestBodies = @"
