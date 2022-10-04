@@ -42,7 +42,7 @@ Connect-PowerBIServiceAccount
 
 
 $iteration = 1
-$GetDatasetRefreshHistory = $PbiRestApi + "groups/" + $groupID + "/datasets/" + $datasetID + "/refreshes"
+$RefreshURL = $PbiRestApi + "groups/" + $groupID + "/datasets/" + $datasetID + "/refreshes"
 
 # Perform a DO loop until we go through each of the request body from requestBodies array
 DO
@@ -54,10 +54,10 @@ DO
     Write-Host “Starting Refresh of the specified request body:`n $RequestBody”
 
     # Refresh the dataset
-    Invoke-PowerBIRestMethod -Url $uri –Method POST –Verbose -Body $RequestBody  -ContentType "application/json"
+    Invoke-PowerBIRestMethod -Url $RefreshURL –Method POST –Verbose -Body $RequestBody  -ContentType "application/json"
 
     # Get the refresh history of the same dataset 
-    $DatasetRefreshHistory = Invoke-PowerBIRestMethod -Method GET -Url $GetDatasetRefreshHistory | ConvertFrom-Json
+    $DatasetRefreshHistory = Invoke-PowerBIRestMethod -Method GET -Url $RefreshURL | ConvertFrom-Json
 
     # Retrieve the first refresh id
     $refreshId = $DatasetRefreshHistory.value[0].requestId
@@ -73,7 +73,7 @@ DO
         $retries = 1
 
         # To not use api each second, we will delay the requests
-        Start-Sleep -Seconds 2
+        Start-Sleep -Seconds 180
 
         # Get the refresh details of the specified refresh id
         Write-Host “Starting checking refresh details. Iteration - $iteration, retry - $retries”
@@ -98,3 +98,4 @@ DO
 
     $iteration++
 } Until ($iteration -eq $RequestBodies.Length+1)
+
