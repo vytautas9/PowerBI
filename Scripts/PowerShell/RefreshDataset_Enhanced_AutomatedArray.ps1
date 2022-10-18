@@ -46,6 +46,8 @@ Write-Host -ForegroundColor White "Sign in to connect to the Power BI Service";
 Connect-PowerBIServiceAccount
 
 
+# TODO - firstly check if there's ongoing refreshes before starting the loop
+
 $iteration = 1
 $RefreshURL = $PbiRestApi + "groups/" + $groupID + "/datasets/" + $datasetID + "/refreshes"
 
@@ -72,11 +74,10 @@ DO
     $GetRefreshDetails = $PbiRestApi + "groups/" + $groupID + "/datasets/" + $datasetID + "/refreshes/" + $refreshId
 
     # Perform a DO loop until the refresh status is not "Unknown"
+    # Keep track of the number of tries
+    $retries = 1
     DO
     {
-        # Keep track of the number of tries
-        $retries = 1
-
         # To not use api each second, we will delay the requests
         Start-Sleep -Seconds 180
 
