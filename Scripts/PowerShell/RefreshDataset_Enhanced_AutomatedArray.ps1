@@ -54,6 +54,8 @@ $numerOfRequests = $RequestBodies.Length
 $RefreshURL = $PbiRestApi + "groups/" + $groupID + "/datasets/" + $datasetID + "/refreshes"
 
 # Before starting first refresh, we'll check if there's ongoing refresh. We'll keep looping thourgh until the latest refresh is completed or failed.
+Write-Host "Starting checking the latest refresh status."
+
 $retries = 1
 DO
 {
