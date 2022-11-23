@@ -1,17 +1,11 @@
-/*
- * Title: Copy DAX Comment into the measure's description field.
- * 
- * This script, when executed, will loop through all the measures in the model and
- * look for the first comment (aka. green text :) ) as designated by "//". It will copy the entire comment
- * until the next line break and put that into the measure's description.
- * 
- * If no comment of this type exists within the DAX Expression, then it copies the entire 
- * DAX expression into the measure's description.
- * 
- * At this point it only works on the first comment and for comments using slashes "//" but 
- * hope someone (or myself) can improve it to collect all comments with slashes 
- * or slash star formats.
- */
+// Copies the first DAX comment into the measure's description field.
+// 
+// Code loops through all the measures in the model and look for the first 
+// comment which is defined by "//". It will copy the entire comment until 
+// the next line break and put that into the measure's description.
+// 
+// If no comment of this type exists within the DAX Expression, then it copies 
+// the entire DAX expression into the measure's description.
 
 foreach(var m in Model.AllMeasures) {
   // Find the first comment using the two forward slashes
