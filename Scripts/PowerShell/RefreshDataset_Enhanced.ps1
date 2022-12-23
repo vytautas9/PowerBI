@@ -10,6 +10,7 @@ $RequestBody = @"
 {
     "type": "full",
     "commitMode": "transactional",
+    "maxParallelism": 6,
     "applyRefreshPolicy": "false",
     "objects": [
         {
